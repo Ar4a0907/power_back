@@ -1,29 +1,33 @@
-# README #
+## Power banks admin back-end
 
-This README would normally document whatever steps are necessary to get your application up and running.
+##### NOTE
+For all listed below commands use your versions of python and pip
 
-### What is this repository for? ###
+## Project setup
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* Create virtual environment in project root directory:  
+`sudo python3.9 -m venv venv`
+* Activate virtual env(from project root dir):  
+`. venv/bin/activate`
+* Install dependencies(from root folder):  
+`sudo pip3.9 install -r requirements.txt`
+* To deactivate virtual env run:  
+`deactivate`  
+* Database creation(also can be used on db structure change). Inside root dir run(when venv activated):  
+`python3.9`  
+`from power_banks_admin import app`  
+`from power_banks_admin.db import db`  
+`db.init_app(app)`  
+`with app.app_context():`  
+`db.create_all()`  
 
-### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+##### NOTE
+Install new dependencies only when you in virtual env. When all dependencies installed run(from project root dir):  
+`pip3.9 freeze > requirements.txt`
 
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+## Run app
+* Set flask app variable:  
+`export FLASK_APP=power_banks_admin`
+* Run app:  
+`flask run`
