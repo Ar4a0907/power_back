@@ -22,6 +22,7 @@ class ConfigClass(object):
     JWT_SECRET_KEY = '9PvSQPKL0geUtrIieeDn498HMt47yJFk'
     JWT_BLACKLIST_ENABLED = True
     JWT_BLACKLIST_TOKEN_CHECKS = ['access']  # access token will be checked in blacklist, add refresh for refresh token if required
+    JWT_EXPIRATION_TIME = 3  # days
 
     # Flask-SQLAlchemy settings
     SQLALCHEMY_DATABASE_URI = 'sqlite:///database.db'  # file-based SQL database for dev only
@@ -60,7 +61,7 @@ jwt.init_app(app)
 
 
 @app.route('/admin', methods=['POST'])
-@loginRequired(ADMIN_ROLE['super_admin'])
+# @loginRequired(ADMIN_ROLE['super_admin'])
 def signup():
     if ConfigClass.ENVIRONMENT == 'test':
         requestData = request.json
