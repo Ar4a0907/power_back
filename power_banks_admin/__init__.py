@@ -67,10 +67,10 @@ def signup():
         requestData = request.json
 
         if 'email' not in requestData or 'password' not in requestData:
-            return jsonify({'message': 'Wrong data supplied'}), 400
+            return jsonify({'error': 'wrong_data_supplied'}), 400
 
         if Admin.query.filter_by(email=requestData['email'].lower()).first() is not None:
-            return jsonify({'error': 'Email already in use'}), 400
+            return jsonify({'error': 'email_already_in_use'}), 400
 
         admin = Admin(email=requestData['email'].lower(),
                       password=bcrypt.hashpw(requestData['password'].encode('utf-8'), bcrypt.gensalt(rounds=12)),
