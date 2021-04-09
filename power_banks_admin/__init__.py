@@ -9,7 +9,7 @@ from .common import logInfo, logCritical, logError, sqlDebug, encrypt, decrypt, 
 from .common import getDictKeyByValue
 from .config import ADMIN_STATUS, ADMIN_ROLE, ADMIN_MAX_LOGIN_ATTEMPTS
 from .db import db, dbSession, Admin
-from . import admins
+from . import admins, devices
 from .auth import jwt, loginRequired, RevokedTokenAdmin, getAdminIdFromSession
 from .validation_schemas.auth_schemas import AuthSchemas
 
@@ -22,6 +22,7 @@ class ConfigClass(object):
     JWT_SECRET_KEY = '9PvSQPKL0geUtrIieeDn498HMt47yJFk'
     JWT_BLACKLIST_ENABLED = True
     JWT_BLACKLIST_TOKEN_CHECKS = ['access']  # access token will be checked in blacklist, add refresh for refresh token if required
+    JWT_EXPIRATION_TIME = 3  # days
 
     # Flask-SQLAlchemy settings
     SQLALCHEMY_DATABASE_URI = 'sqlite:///database.db'  # file-based SQL database for dev only
@@ -55,6 +56,7 @@ else:  # MEMO: michael: used only for dev
 db.init_app(app)
 
 app.register_blueprint(admins.bp)
+app.register_blueprint(devices.bp)
 
 jwt.init_app(app)
 
@@ -66,10 +68,10 @@ def signup():
         requestData = request.json
 
         if 'email' not in requestData or 'password' not in requestData:
-            return jsonify({'message': 'Wrong data supplied'}), 400
+            return jsonify({'error': 'wrong_data_supplied'}), 400
 
         if Admin.query.filter_by(email=requestData['email'].lower()).first() is not None:
-            return jsonify({'error': 'Email already in use'}), 400
+            return jsonify({'error': 'email_already_in_use'}), 400
 
         admin = Admin(email=requestData['email'].lower(),
                       password=bcrypt.hashpw(requestData['password'].encode('utf-8'), bcrypt.gensalt(rounds=12)),
