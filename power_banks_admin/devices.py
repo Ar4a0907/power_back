@@ -8,37 +8,37 @@ def getProfile():
 
     devices = DeviceInfo.query.all()
     arr = []
-    for i in devices:
+    for device in devices:
     	arr.append({
-      		"id" : i.id,
-            "createdTime" : i.createdTime,
-            "deviceNo" : i.deviceNo,
-            "deviceName" : i.deviceName,
-            "cloudId" : i.cloudId,
-            "iccId" : i.iccId,
-            "deviceKey" : i.deviceKey,
-            "sn" : i.sn,
-            "deviceState" : i.deviceState,
-            "trace" : i.trace,
-            "spaceNu" : i.spaceNu,
-            "machineNu" : i.machineNu,
-            "deviceUuid" : i.deviceUuid,
-            "softVersion" : i.softVersion,
-            "hardVersion" : i.hardVersion,
-            "agreementVersion" : i.agreementVersion,
-            "url" : i.url,
-            "deviceModel" : i.deviceModel,
-            "deviceSignal" : i.deviceSignal,
-            "networkType" : i.networkType,
-            "networkOperator" : i.networkOperator,
-            "deviceIp" : i.deviceIp,
-            "soleUid" : i.soleUid,
-            "placeUid" : i.placeUid,
-            "agentUid" : i.agentUid
+			"id" : device.id,
+			"createdTime" : device.createdTime,
+			"deviceNo" : device.deviceNo,
+			"deviceName" : device.deviceName,
+			"cloudId" : device.cloudId,
+			"iccId" : device.iccId,
+			"deviceKey" : device.deviceKey,
+			"sn" : device.sn,
+			"deviceState" : device.deviceState,
+			"trace" : device.trace,
+			"spaceNu" : device.spaceNu,
+			"machineNu" : device.machineNu,
+			"deviceUuid" : device.deviceUuid,
+			"softVersion" : device.softVersion,
+			"hardVersion" : device.hardVersion,
+			"agreementVersion" : device.agreementVersion,
+			"url" : device.url,
+			"deviceModel" : device.deviceModel,
+			"deviceSignal" : device.deviceSignal,
+			"networkType" : device.networkType,
+			"networkOperator" : device.networkOperator,
+			"deviceIp" : device.deviceIp,
+			"soleUid" : device.soleUid,
+			"placeUid" : device.placeUid,
+			"agentUid" : device.agentUid
         })
 
     devicesData = {
-        'devicesArray' : arr
+        'devices' : arr
     }
 
     return jsonify(devicesData)
