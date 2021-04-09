@@ -59,7 +59,7 @@ class FindbackLog(db.Model):
 
     deviceUuid = db.Column(db.String(20), default=None)
     machineUuid = db.Column(db.Text)
-    event = db.Column(db.String(10,"utf8mb4_unicode_ci"), default=None)
+    event = db.Column(db.String(10), default=None)
     bid = db.Column(db.Integer, default=None)
     createdTime = db.Column(db.DateTime, default=None)
 
@@ -87,14 +87,14 @@ class OrderPay(db.Model):
 
     orderType = db.Column(db.Integer, nullable=False, default=0)
     payState = db.Column(db.Integer, nullable=False, default=0)
-    payCount = db.Column(db.String(50,"utf8mb4_unicode_ci"), nullable=False, default=None)
+    payCount = db.Column(db.String(50), nullable=False, default=None)
     payMoney = db.Column(db.Integer, nullable=False)
     realMoney = db.Column(db.Integer, default=None)
-    outTradeNo = db.Column(db.String(50,"utf8mb4_unicode_ci"), nullable=False)
-    wxOutTradeNo = db.Column(db.String(255,"utf8mb4_unicode_ci"), default=None)
-    prepayId = db.Column(db.String(255,"utf8mb4_unicode_ci"), default=None)
+    outTradeNo = db.Column(db.String(50), nullable=False)
+    wxOutTradeNo = db.Column(db.String(255), default=None)
+    prepayId = db.Column(db.String(255), default=None)
     expiresIn = db.Column(db.Integer, default=None)
-    tradeType = db.Column(db.String(255,"utf8mb4_unicode_ci"), default=None)
+    tradeType = db.Column(db.String(255), default=None)
     createdTime = db.Column(db.TIMESTAMP, nullable=False, default=datetime.utcnow)
     payTime = db.Column(db.DateTime, default=None)
     applyRefundTime = db.Column(db.DateTime, default=None)
@@ -106,20 +106,20 @@ class OrderPay(db.Model):
 class OrderRentPay(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
 
-    orderNo = db.Column(db.String(100,"utf8mb4_unicode_ci"), nullable=False)
+    orderNo = db.Column(db.String(100), nullable=False)
     userId = db.Column(db.Integer, nullable=False, default=0)
-    powerNo = db.Column(db.String(50,"utf8mb4_unicode_ci"), nullable=False)
+    powerNo = db.Column(db.String(50), nullable=False)
     money = db.Column(db.Integer, nullable=False, default=0)
-    memo = db.Column(db.String(255,"utf8mb4_unicode_ci"), default=None)
+    memo = db.Column(db.String(255), default=None)
     orderType = db.Column(db.Integer, nullable=False, default=0)
     orderState = db.Column(db.Integer, nullable=False, default=0)
     payWay = db.Column(db.Integer, nullable=False, default=0)
-    deviceUuid = db.Column(db.String(20,"utf8mb4_unicode_ci"), default=None)
+    deviceUuid = db.Column(db.String(20), default=None)
     createTime = db.Column(db.TIMESTAMP, nullable=False, default=datetime.utcnow)
     updateTime = db.Column(db.TIMESTAMP, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
     closeTime = db.Column(db.TIMESTAMP, nullable=True, default=None)
     finishTime = db.Column(db.TIMESTAMP, nullable=True, default=None)
-    orderPayNo = db.Column(db.String(255,"utf8mb4_unicode_ci"), default=None)
+    orderPayNo = db.Column(db.String(255), default=None)
 
 
 class Powerbank(db.Model):
@@ -157,39 +157,39 @@ class PowerbankPositionLog(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
 
     createTime = db.Column(db.DateTime, default=None)
-    positionUuid = db.Column(db.String(20,"utf8mb4_unicode_ci"), default=None)
-    powerNo = db.Column(db.String(100,"utf8mb4_unicode_ci"), default=None)
+    positionUuid = db.Column(db.String(20), default=None)
+    powerNo = db.Column(db.String(100), default=None)
     state = db.Column(db.Integer, nullable=False, default=0)
     modifyTime = db.Column(db.DateTime, default=None)
     userId = db.Column(db.Integer, default=None)
-    deviceUuid = db.Column(db.String(100,"utf8mb4_unicode_ci"), default=None)
+    deviceUuid = db.Column(db.String(100), default=None)
     backTime = db.Column(db.DateTime, default=None)
 
 
 class WxaUser(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
 
-    nickName = db.Column(db.String(225,"utf8mb4_unicode_ci"), nullable=False)
-    headUrl = db.Column(db.String(225,"utf8mb4_unicode_ci"), nullable=False)
+    nickName = db.Column(db.String(225), nullable=False)
+    headUrl = db.Column(db.String(225), nullable=False)
     sex = db.Column(db.Integer, nullable=False, default=0)
-    province = db.Column(db.String(225,"utf8mb4_unicode_ci"), default=None)
-    city = db.Column(db.String(225,"utf8mb4_unicode_ci"), default=None)
+    province = db.Column(db.String(225), default=None)
+    city = db.Column(db.String(225), default=None)
     rent = db.Column(db.Integer, nullable=False, default=0)
     userType = db.Column(db.Integer, nullable=False, default=1)
     loanType = db.Column(db.Integer, nullable=False, default=0)
-    unionId = db.Column(db.String(225,"utf8mb4_unicode_ci"), default=None)
-    openId = db.Column(db.String(225,"utf8mb4_unicode_ci"), nullable=False)
-    uuid = db.Column(db.String(225,"utf8mb4_unicode_ci"), nullable=False)
+    unionId = db.Column(db.String(225), default=None)
+    openId = db.Column(db.String(225), nullable=False)
+    uuid = db.Column(db.String(225), nullable=False)
     debug = db.Column(db.Integer, nullable=False, default=0)
     createdTime = db.Column(db.TIMESTAMP, nullable=False, default=datetime.utcnow)
-    country = db.Column(db.String(225,"utf8mb4_unicode_ci"), default=None)
+    country = db.Column(db.String(225), default=None)
     money = db.Column(db.Integer, nullable=False, default=0)
 
 
 class WxaUserFormId(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     
-    openId = db.Column(db.String(225,"utf8mb4_unicode_ci"), nullable=False)
-    formId = db.Column(db.String(225,"utf8mb4_unicode_ci"), nullable=False)
+    openId = db.Column(db.String(225), nullable=False)
+    formId = db.Column(db.String(225), nullable=False)
     state = db.Column(db.Integer, nullable=False, default=0)
     createdTime = db.Column(db.TIMESTAMP, nullable=False, default=datetime.utcnow)

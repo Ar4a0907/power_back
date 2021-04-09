@@ -9,7 +9,7 @@ from .common import logInfo, logCritical, logError, sqlDebug, encrypt, decrypt, 
 from .common import getDictKeyByValue
 from .config import ADMIN_STATUS, ADMIN_ROLE, ADMIN_MAX_LOGIN_ATTEMPTS
 from .db import db, dbSession, Admin
-from . import admins
+from . import admins, devices
 from .auth import jwt, loginRequired, RevokedTokenAdmin, getAdminIdFromSession
 from .validation_schemas.auth_schemas import AuthSchemas
 
@@ -56,12 +56,13 @@ else:  # MEMO: michael: used only for dev
 db.init_app(app)
 
 app.register_blueprint(admins.bp)
+app.register_blueprint(devices.bp)
 
 jwt.init_app(app)
 
 
 @app.route('/admin', methods=['POST'])
-# @loginRequired(ADMIN_ROLE['super_admin'])
+@loginRequired(ADMIN_ROLE['super_admin'])
 def signup():
     if ConfigClass.ENVIRONMENT == 'test':
         requestData = request.json
