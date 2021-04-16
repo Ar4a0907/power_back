@@ -1,14 +1,20 @@
 from flask import Blueprint, jsonify
 from .db import DeviceInfo
+from .config import ITEMS_PER_PAGE
+from flask import request
 
 bp = Blueprint('devices', __name__)
 
 @bp.route('/devices', methods=['GET'])
 def getProfile():
 
-    devices = DeviceInfo.query.all()
+    page = request.args.get('page', default=1, type=int)
+    if page < 1:
+    	page = 1
+    devices = DeviceInfo.query.paginate(page, ITEMS_PER_PAGE, False)
+    total = len(DeviceInfo.query.all()) 
     arr = []
-    for device in devices:
+    for device in devices.items:
     	arr.append({
 			"id" : device.id,
 			"createdTime" : device.createdTime,
@@ -37,8 +43,10 @@ def getProfile():
 			"agentUid" : device.agentUid
         })
 
-    devicesData = {
-        'devices' : arr
+    devicesData = { 
+    "data" : arr,
+    "total" : total
     }
+    
 
     return jsonify(devicesData)
