@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from .db import DeviceInfo
+from .db import DeviceInfo, dbSession
 from .config import ITEMS_PER_PAGE
 from flask import request
 
@@ -12,7 +12,7 @@ def getProfile():
     if page < 1:
     	page = 1
     devices = DeviceInfo.query.paginate(page, ITEMS_PER_PAGE, False)
-    total = len(DeviceInfo.query.all()) 
+    total = len(dbSession.query(DeviceInfo.id).all())
     arr = []
     for device in devices.items:
     	arr.append({
@@ -44,8 +44,8 @@ def getProfile():
         })
 
     devicesData = { 
-    "data" : arr,
-    "total" : total
+    	"data" : arr,
+    	"total" : total
     }
     
 
