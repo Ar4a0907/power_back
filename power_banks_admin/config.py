@@ -11,6 +11,8 @@ ADMIN_STATUS = {
     'removed': 3
 }
 
+ITEMS_PER_PAGE = 20
+
 CRYPTO_PASSWORD = b'VeryStrongPassword214'  # TODO: michael: replace with the strong password
 CRYPTO_SALT = b'2JKNNOY36W178FH8'
 ADMIN_MAX_LOGIN_ATTEMPTS = 5
